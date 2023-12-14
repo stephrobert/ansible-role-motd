@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Stephane ROBERT
+  role_name: motd
+  namespace: stephrobert
+  description: Configure motd
+  company: none
+  license: MLP2
+  min_ansible_version: "2.11"
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+    - name: Ubuntu
+      versions:
+        - jammy
+  galaxy_tags: []
+dependencies: []

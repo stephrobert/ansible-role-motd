@@ -1,0 +1,3 @@
+---
+motd_disable_default_motd: true
+motd_banner: stephrobert

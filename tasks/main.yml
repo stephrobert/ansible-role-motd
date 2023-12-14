@@ -1,0 +1,40 @@
+---
+- name: Install Figlet
+  become: true
+  ansible.builtin.package:
+    name:
+      - figlet
+
+- name: Copy config to Disable Motd in sshd
+  ansible.builtin.copy:
+    dest: "{{ motd_sshd_config_file_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+    src: 10-disable-motd
+  become: true
+- name: Disable Default motd
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: '^(session\s+optional\s+pam_motd.so\s+.*)'
+    replace: '# \1'
+  loop:
+    - "{{ motd_pam_login_file_path }}"
+    - "{{ motd_pam_sshd_file_path }}"
+  become: true
+- name: Copy new dynamic motd
+  become: true
+  ansible.builtin.template:
+    src: dyn-motd
+    dest: "{{ motd_file_path }}"
+    owner: root
+    group: root
+    mode: '0755'
+- name: Configure New Dynamic Motd in PAM
+  become: true
+  ansible.builtin.lineinfile:
+    path: "{{ item }}"
+    line: session optional pam_exec.so type=open_session stdout {{ motd_file_path }}
+  loop:
+    - "{{ motd_pam_login_file_path }}"
+    - "{{ motd_pam_sshd_file_path }}"

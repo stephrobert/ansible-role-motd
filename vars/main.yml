@@ -1,0 +1,5 @@
+---
+motd_sshd_config_file_path: /etc/ssh/sshd_config.d/10-disable-motd
+motd_pam_login_file_path: /etc/pam.d/login
+motd_pam_sshd_file_path: /etc/pam.d/sshd
+motd_file_path: /usr/local/bin/dynmotd
