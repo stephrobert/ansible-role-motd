@@ -1,0 +1,20 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Get motd file
+      ansible.builtin.stat:
+        path: /etc/ssh/sshd_config.d/10-disable-motd
+      register: motd_sshd_config_file
+
+    - name: Verify motd file
+      ansible.builtin.assert:
+        that:
+          - motd_sshd_config_file.stat.exists
+          - motd_sshd_config_file.stat.mode == '0644'
+          - motd_sshd_config_file.stat.pw_name == 'root'
+          - motd_sshd_config_file.stat.gr_name == 'root'
+        fail_msg: "Le fichier n'a pas les bonnes permissions ou le bon propriétaire/groupe"

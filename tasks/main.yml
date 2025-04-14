@@ -1,10 +1,10 @@
 ---
-- name: Install Figlet
+- name: Install Dependencies
   become: true
   ansible.builtin.package:
     name:
       - figlet
-
+      - openssh-server
 - name: Copy config to Disable Motd in sshd
   ansible.builtin.copy:
     dest: "{{ motd_sshd_config_file_path }}"

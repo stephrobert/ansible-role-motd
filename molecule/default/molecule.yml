@@ -19,23 +19,15 @@ platforms:
       - SYS_TIME
       - LINUX_IMMUTABLE
     command: "/lib/systemd/systemd"
-provisioner:
-  name: ansible
 
-verifier:
-  name: testinfra
-
-lint:
+lint: |
   set -e
   yamllint .
   ansible-lint
   flake8
 
-scenario:
-  test_sequence:
-    - destroy
-    - create
-    - converge
-    # - idempotence
-    - lint
-    - verify
+provisioner:
+  name: ansible
+
+verifier:
+  name: ansible

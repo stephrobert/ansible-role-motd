@@ -1,8 +1,7 @@
 ---
 galaxy_info:
-  author: Stephane ROBERT
+  author: stephrobert
   role_name: motd
-  namespace: stephrobert
   description: Configure motd
   company: none
   license: MLP2

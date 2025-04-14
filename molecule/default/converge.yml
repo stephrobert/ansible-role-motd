@@ -4,6 +4,4 @@
   tasks:
     - name: Include role
       ansible.builtin.include_role:
-        name: ansible-role-motd
-      vars:
-        - scan: true
+        name: stephrobert.motd

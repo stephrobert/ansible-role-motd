@@ -1,0 +1,11 @@
+- name: Afficher la version d'Ansible
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Afficher la version d'Ansible
+      ansible.builtin.command: ansible --version
+      register: version_ansible
+
+    - name: Affichage version
+      ansible.builtin.debug:
+        var: version_ansible.stdout_lines
